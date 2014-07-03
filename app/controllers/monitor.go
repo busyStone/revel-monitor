@@ -1,6 +1,6 @@
-// Monitor
-// base on beego
-// config revmonitor.httpaddr revmonitor.httpport
+// Monitor revel app status
+
+// Base on beego
 package controller
 
 import (
@@ -29,6 +29,8 @@ type QPSStatistics struct {
   AvgTime  string
 }
 
+// QpsIndex displays qbs
+// url /@qbs
 func (c *Monitor) QpsIndex() revel.Result {
 
   buf := bytes.NewBuffer([]byte{})
@@ -72,27 +74,21 @@ func (c *Monitor) QpsIndex() revel.Result {
   return c.Render(qps)
 }
 
-// ProfIndex is a http.Handler for showing profile command.
-// it's in url pattern "/prof" in admin module.
-func profIndex(rw http.ResponseWriter, r *http.Request) {
-  r.ParseForm()
-  command := r.Form.Get("command")
+// ProfIndex show profile command or with command to show infos
+// url /@prof
+func (c *Monitor) ProfIndex(command string) revel.Result {
+  var profs []string
+
   if command != "" {
-    toolbox.ProcessInput(command, rw)
-  } else {
-    rw.Write([]byte("<html><head><title>beego admin dashboard</title></head><body>"))
-    rw.Write([]byte("request url like '/prof?command=lookup goroutine'<br>\n"))
-    rw.Write([]byte("the command have below types:<br>\n"))
-    rw.Write([]byte("1. <a href='?command=lookup goroutine'>lookup goroutine</a><br>\n"))
-    rw.Write([]byte("2. <a href='?command=lookup heap'>lookup heap</a><br>\n"))
-    rw.Write([]byte("3. <a href='?command=lookup threadcreate'>lookup threadcreate</a><br>\n"))
-    rw.Write([]byte("4. <a href='?command=lookup block'>lookup block</a><br>\n"))
-    rw.Write([]byte("5. <a href='?command=start cpuprof'>start cpuprof</a><br>\n"))
-    rw.Write([]byte("6. <a href='?command=stop cpuprof'>stop cpuprof</a><br>\n"))
-    rw.Write([]byte("7. <a href='?command=get memprof'>get memprof</a><br>\n"))
-    rw.Write([]byte("8. <a href='?command=gc summary'>gc summary</a><br>\n"))
-    rw.Write([]byte("</body></html>"))
+    buf := bytes.NewBuffer([]byte{})
+
+    toolbox.ProcessInput(command, buf)
+
+    prof := buf.String()
+    profs = strings.Split(prof, "\n")
   }
+
+  return c.Render(command, profs)
 }
 
 // Healthcheck is a http.Handler calling health checking and showing the result.
