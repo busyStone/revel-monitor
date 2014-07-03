@@ -4,6 +4,7 @@
 package monitor
 
 import (
+  "fmt"
   "github.com/astaxie/beego/toolbox"
   "github.com/revel/revel"
   "net/http"
@@ -94,8 +95,8 @@ func init() {
     } else {
       revel.INFO.Printf("Monitor lisend on %s", httpAddr)
 
-      revel.InterceptMethod((*Monitor).QpsBegin(), revel.BEFORE)
-      revel.InterceptMethod((*Monitor).QpsEnd(), revel.AFTER)
+      revel.InterceptMethod((*Monitor).QpsBegin, revel.BEFORE)
+      revel.InterceptMethod((*Monitor).QpsEnd, revel.AFTER)
     }
   })
 }
