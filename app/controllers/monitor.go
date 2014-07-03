@@ -46,6 +46,10 @@ func (c *Monitor) QpsIndex() revel.Result {
       s = strings.TrimSpace(s)
       s = strings.TrimPrefix(s, "|")
       s = strings.TrimSuffix(s, "|")
+      s = strings.TrimSpace(s)
+      if len(s) == 0 {
+        continue
+      }
 
       staticStrs := strings.Split(s, "|")
       if len(staticStrs) != 7 {
