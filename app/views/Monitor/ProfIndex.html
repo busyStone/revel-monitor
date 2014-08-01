@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Prof</title>
+</head>
+<body>
+  {{if eq .command ""}}
+    <div>
+      <p>the command have below types:</p>
+      1. <a href='?command=lookup goroutine'>lookup goroutine</a><br>
+      2. <a href='?command=lookup heap'>lookup heap</a><br>
+      3. <a href='?command=lookup threadcreate'>lookup threadcreate</a><br>
+      4. <a href='?command=lookup block'>lookup block</a><br>
+      5. <a href='?command=start cpuprof'>start cpuprof</a><br>
+      6. <a href='?command=stop cpuprof'>stop cpuprof</a><br>
+      7. <a href='?command=get memprof'>get memprof</a><br>
+      8. <a href='?command=gc summary'>gc summary</a><br>
+    </div>
+  {{else}}
+    {{range .profs}}
+      {{.}} <br/>
+    {{end}}
+  {{end}}
+</body>
+</html>

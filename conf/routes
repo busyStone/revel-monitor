@@ -1,0 +1,3 @@
+
+GET /@qps  Monitor.QpsIndex
+GET /@prof Monitor.ProfIndex

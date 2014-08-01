@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>QPS</title>
+</head>
+<body>
+  {{if .qps}}
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <td>requestUrl</td>
+          <td>method</td>
+          <td>times</td>
+          <td>used</td>
+          <td>max used</td>
+          <td>min used</td>
+          <td>avg used</td>
+        </tr>
+      </thead>
+      <tbody>
+        {{range .qps}}
+          <tr>
+            <td>{{.Url}}</td>
+            <td>{{.Method}}</td>
+            <td>{{.Times}}</td>
+            <td>{{.UsedTime}}</td>
+            <td>{{.MaxTime}}</td>
+            <td>{{.MinTime}}</td>
+            <td>{{.AvgTime}}</td>
+          </tr>
+        {{end}}
+      </tbody>
+    </table>
+  {{end}}
+</body>
+</html>
