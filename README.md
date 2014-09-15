@@ -19,5 +19,10 @@ Add route to routes
 Import in you app/controllers/init.go
 
     _ "github.com/busyStone/revel-monitor/app/controllers"
+    
+Use routes
+
+* /@qps
+* /@prof
 
     
